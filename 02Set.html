@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Set</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    
+</body>
+<script type="text/javascript">
+	/*
+		Set和Map类似，也是一组key的集合，但不存储value。由于key不能重复，所以，在Set中，没有重复的key。
+
+		要创建一个Set，需要提供一个Array作为输入，或者直接创建一个空Set：
+	 */
+	// 新的数据类型Set
+	console.log(typeof Set);//function
+
+	// var s = new Set();
+	var s = new Set([1, 2, 3, 3, '3']);
+	console.log(s instanceof Array);//false
+	console.log(s);//Set {1, 2, 3, "3"} ==>重复的key值被去掉
+
+	s.add(4);
+	s.add(4);
+
+	console.log(s);//Set {1, 2, 3, "3", 4} ==>重复的add key值也被去掉
+
+
+	s.delete(3);
+	console.log(s);//Set {1, 2, "3", 4}
+
+
+</script>
+</html>

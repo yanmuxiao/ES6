@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Map</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    
+</body>
+<script type="text/javascript">
+	// 新的数据类型Map
+	console.log(typeof Map);//function
+
+
+	//初始化Map需要一个二维数组，或者直接初始化一个空Map。
+	var m = new Map([['Michael', 95], ['Bob', 75], ['Tracy', 85]]);
+	console.log(m);//Map {"Michael" => 95, "Bob" => 75, "Tracy" => 85}
+
+
+	console.log(m.get('Bob'));//75
+
+
+	m.set('Bright', '27');
+	console.log(m.get('Bright'));//27
+
+
+	console.log(m.has('Tracy'));//true
+	console.log(m.has('Tracy1'));//false
+
+
+	m.delete('Tracy');
+	console.log(m.has('Tracy'));//false
+	console.log(m.get('Tracy'));//undefined
+
+	//由于一个key只能对应一个value，所以，多次对一个key放入value，后面的值会把前面的值冲掉：
+	m.set('unique', '68');
+	m.set('unique', '88');
+	console.log(m.get('unique'));//88
+	console.log(m);
+	//Map {"Michael" => 95, "Bob" => 75, "Bright" => "27", "unique" => "88"}
+
+
+</script>
+</html>
