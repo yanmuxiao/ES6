@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>()=>{}</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    
+</body>
+<script type="text/javascript">
+
+// Statement bodies
+let nums = [1,2,4,5,7,4,10,15,16,20];
+let fives = [];
+nums.forEach(v => {
+  if (v % 5 === 0)
+    fives.push(v);
+});
+console.log(fives);
+
+// Lexical this
+var bob = {
+  _name: "Bob",
+  _friends: ['Tom', 'hl'],
+  printFriends() {
+    this._friends.forEach(f =>
+      console.log(this._name + " knows " + f));
+  }
+};
+
+bob.printFriends();
+
+
+function destructuring({c}, data) {
+	console.log(c); // c
+  console.log(data) // 'data1'
+}
+destructuring({b: 'b', c: 'c', data: 'data'}, 'data1')
+
+
+
+
+
+
+
+function fn1() {
+  var x = 100;
+  var y = 900;
+  function fn2(arg) {
+
+      console.log(x);
+      x++;
+  }
+  return fn2;
+  
+}
+var fn3 = fn1();
+fn3();
+fn3();
+
+var fn4 = fn1(); // x的指向变了，因为fn1每执行一次生成一个新的x私有变量
+fn4();
+fn4();
+
+
+
+var arr = [];
+for(var i=0; i < 10; i++) {
+    arr[i] = function() {
+      console.log(i);// i的指向始终不变
+    }
+}
+console.log(arr[2])
+console.log(arr[3])
+arr[2]()
+arr[3]()
+
+
+
+
+
+
+var arr1 = [];
+for(var j=0; j < 10; j++) {
+    arr1[j] = (function(k){
+        return function() {
+          console.log(k); 
+          // k的指向变了，因为自执行函数没自执行一次都重新生成的一个变量
+          k++;
+        }
+    })(j)
+}
+console.log(arr1[2])
+console.log(arr1[3])
+arr1[2]()
+arr1[2]()
+arr1[3]()
+arr1[3]()
+
+
+
+var n = 300;
+function nFn() {
+  console.log(n);// n的指向始终不变
+  n++;
+}
+function aCourseFn(fn) {
+    fn();
+}
+var aCourseFn1 = aCourseFn;// n的指向始终不变
+aCourseFn1(nFn);
+aCourseFn1(nFn);
+aCourseFn1(nFn);
+var aCourseFn2 = aCourseFn;// n的指向始终不变
+aCourseFn2(nFn);
+aCourseFn2(nFn);
+aCourseFn2(nFn);
+
+
+
+
+// letV的指向始终没变
+{
+  let letV = 123;
+  var varVFn = function() {
+    console.log(letV)
+    letV++;
+  }
+}
+var varVFn1 = varVFn;
+varVFn1();
+varVFn1();
+var varVFn2 = varVFn;
+varVFn2();
+varVFn2();
+
+
+function Persion() {
+    var num = 600;
+    this.say = function() {
+        console.log(num++);
+    }
+}
+var p1 = new Persion();
+p1.say();
+p1.say();
+p1.say();
+
+
+var p2 = new Persion();
+p2.say();
+p2.say();
+p2.say();
+
+
+function returnObj() {
+  var num = 800;
+  return {
+      objFn: function() {
+        console.log(num++);
+      }
+  }
+}
+
+var returnObj1 = returnObj();
+returnObj1.objFn();// 800
+returnObj1.objFn();// 801
+
+var returnObj2 = returnObj();
+returnObj2.objFn();// 800
+returnObj2.objFn();// 801
+returnObj2.objFn();// 802
+
+
+// var outerFn;
+// function allFn() {
+//   var allNum = 100;
+//   outerFn = function() {
+//       console.log(allNum++);
+//   }
+// }
+// allFn();
+// outerFn();
+// outerFn();
+// outerFn();
+
+
+
+var outerFn;
+function allFn() {
+  var allNum = 100;
+  outerFn = function() {
+      console.log(allNum++);
+  }
+  outerFn();
+  outerFn();
+  outerFn();
+}
+allFn();
+
+
+console.log('**********************************');
+let iteratorObj = ['a', 'b', 'c'].keys();
+console.log(iteratorObj); // ArrayIterator {}
+console.log(iteratorObj instanceof Array); // false
+
+
+
+
+let propKey = 'foo';
+let obj = {
+    [propKey]: true,
+    ['a' + 'bc']: 'ABC'
+}
+console.log(obj.foo);// true
+console.log(obj.abc);// 'ABC'
+
+
+
+let a = { a: 'a' }
+let b = { b: 'b' }
+let c = { c: 'c' }
+console.log(Object.assign(a, b, c) === a)
+console.log(Object.assign(a, b, c));// true
+
+
+
+console.log(Object.assign(2) == 2); // true
+console.log(Object.assign(2) === 2); // false
+console.log(Object.assign('a') == 'a');// true
+console.log(Object.assign('a') === 'a');// false
+
+
+let fgh = { fgh: 'fgh' }
+console.log(Object.assign(fgh, 'fgh', true, null, undefined, new Date(), NaN, ['arr'], 2))
+
+console.log(Object.assign('abc'))
+console.log(Object.assign([1,2,3],[4,5]))
+console.log(Object.assign({},[4,5]))
+
+
+
+let set = new Set();
+set.add({a: 'a'}).add({a: 'a'});
+console.log(set);
+console.log(set.size);
+
+
+
+</script>
+</html>

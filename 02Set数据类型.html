@@ -36,5 +36,10 @@
 	console.log(s);//Set {1, 2, "3", 4}
 
 
+	let aSet = new Set([{ a: 'a'}]);
+	let bSet = new Set(aSet);
+	console.log(bSet === aSet);
+
+
 </script>
 </html>
